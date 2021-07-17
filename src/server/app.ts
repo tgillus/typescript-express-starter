@@ -3,11 +3,11 @@ import express from 'express';
 const app = express();
 
 app.get('/', (req, res) => {
-  res
-    .json({
-      message: 'Hello Express!',
-    })
-    .status(200);
+  const body = {
+    message: 'Hello Express!',
+  };
+
+  res.json(body).status(200);
 });
 
 export { app };
