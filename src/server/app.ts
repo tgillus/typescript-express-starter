@@ -1,5 +1,5 @@
 import express from 'express';
-import { morganMiddleware } from '../middleware/morgan';
+import { morganMiddleware } from '../middlewares/morgan';
 import { messagesRouter } from '../routes/messages';
 
 const app = express();
