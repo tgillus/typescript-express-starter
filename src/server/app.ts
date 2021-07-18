@@ -1,6 +1,6 @@
 import express from 'express';
 import { morganMiddleware } from '../middleware/morgan';
-import { messagesRouter } from '../routers/messages';
+import { messagesRouter } from '../routes/messages';
 
 const app = express();
 
