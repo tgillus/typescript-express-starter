@@ -8,7 +8,7 @@ describe('GET /', () => {
     };
 
     supertest(app)
-      .get('/')
+      .get('/messages')
       .expect('Content-Type', /json/)
       .expect(200, expectedBody, done);
   });

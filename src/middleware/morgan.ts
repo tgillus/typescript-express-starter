@@ -6,8 +6,7 @@ const stream: morgan.StreamOptions = {
 };
 
 const skip = () => {
-  const env = process.env.NODE_ENV || 'development';
-  return env !== 'development';
+  return process.env.NODE_ENV !== 'development';
 };
 
 const morganMiddleware = morgan(':method :url :status :response-time ms', {

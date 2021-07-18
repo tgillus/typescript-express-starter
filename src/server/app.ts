@@ -1,16 +1,10 @@
 import express from 'express';
 import { morganMiddleware } from '../middleware/morgan';
+import { router as messagesRouter } from '../routers/messages';
 
 const app = express();
 
 app.use(morganMiddleware);
-
-app.get('/', (req, res) => {
-  const body = {
-    message: 'Hello Express!',
-  };
-
-  res.json(body).status(200);
-});
+app.use('/messages', messagesRouter);
 
 export { app };
