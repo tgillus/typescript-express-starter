@@ -1,6 +1,8 @@
 import express from 'express';
 import * as messagesController from '../controllers/messages';
 
-export const router = express.Router();
+const messagesRouter = express.Router();
 
-router.get('/', messagesController.getMessage);
+messagesRouter.get('/', messagesController.getMessage);
+
+export { messagesRouter };
