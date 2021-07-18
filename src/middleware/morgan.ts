@@ -9,9 +9,12 @@ const skip = () => {
   return process.env.NODE_ENV !== 'development';
 };
 
-const morganMiddleware = morgan(':method :url :status :response-time ms', {
+const options = {
   stream,
   skip,
-});
+};
 
-export { morganMiddleware };
+export const morganMiddleware = morgan(
+  ':method :url :status :response-time ms',
+  options
+);

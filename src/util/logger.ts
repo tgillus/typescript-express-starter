@@ -16,7 +16,7 @@ const levels = {
   debug: 4,
 };
 
-const format = winston.format.combine(
+const consoleFormat = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
   winston.format.colorize({ all: true }),
   winston.format.printf((info) => {
@@ -30,14 +30,12 @@ const format = winston.format.combine(
 
 const transports = [
   new winston.transports.Console({
-    format,
+    format: consoleFormat,
   }),
 ];
 
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
   level: process.env.LOGGING_LEVEL,
   levels,
   transports,
 });
-
-export { logger };
