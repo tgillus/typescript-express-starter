@@ -1,4 +1,3 @@
-import 'source-map-support/register';
 import './util/env';
 import { app } from './express/app';
 import { logger } from './util/logger';
