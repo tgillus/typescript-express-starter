@@ -13,7 +13,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     libraryTarget: 'commonjs',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'bundle'),
     clean: true,
   },
   devtool: 'inline-source-map',

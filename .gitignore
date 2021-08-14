@@ -1,6 +1,6 @@
 build
+bundle
 coverage
-dist
 .env
 .eslintcache
 node_modules

@@ -1,6 +1,6 @@
 build
+bundle
 coverage
-dist
 .husky
 node_modules
 
