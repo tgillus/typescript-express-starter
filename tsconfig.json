@@ -20,9 +20,10 @@
     // "noFallthroughCasesInSwitch": true,          /* Report errors for fallthrough cases in switch statement. */
     // "typeRoots": ["./node_modules/@types"],      /* List of folders to include type definitions from. */
     "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "experimentalDecorators": true,
+    "isolatedModules": true,
+    // "inlineSourceMap": true,
+    // "inlineSources": true,
+    // "experimentalDecorators": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true

@@ -1,4 +1,5 @@
 build
+bundle
 .husky
 node_modules
 

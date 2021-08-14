@@ -1,4 +1,4 @@
-import winston from 'winston';
+import * as winston from 'winston';
 
 winston.addColors({
   error: 'red',
@@ -16,22 +16,23 @@ const levels = {
   debug: 4,
 };
 
-const consoleFormat = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-  winston.format.colorize({ all: true }),
-  winston.format.printf((info) => {
-    let msg = `${info.timestamp} ${info.level}: ${info.message}`;
-    if (info.stack) {
-      msg += `\n${info.stack}`;
-    }
-    return msg;
-  })
-);
+// const consoleFormat = winston.format.combine(
+//   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+//   winston.format.colorize({ all: true }),
+//   winston.format.printf((info) => {
+//     let msg = `${info.timestamp} ${info.level}: ${info.message}`;
+//     if (info.stack) {
+//       msg += `\n${info.stack}`;
+//     }
+//     return msg;
+//   })
+// );
 
 const transports = [
-  new winston.transports.Console({
-    format: consoleFormat,
-  }),
+  // new winston.transports.Console({
+  //   format: consoleFormat,
+  // }),
+  new winston.transports.Console(),
 ];
 
 export const logger = winston.createLogger({
