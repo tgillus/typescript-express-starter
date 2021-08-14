@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import { app } from '../src/server/app';
+import { app } from '../src/express/app';
 
 describe('GET /', () => {
   it('returns a JSON with a message', (done) => {
