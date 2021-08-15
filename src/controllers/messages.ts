@@ -1,9 +1,12 @@
-import express from 'express';
+import { getRepository } from 'typeorm';
+import { Request, Response } from 'express';
+import { Message } from '../db/entities/message';
 
-export const getMessage: express.RequestHandler = (req, res) => {
-  const body = {
-    message: 'Hello Express!',
-  };
+export class MessagesController {
+  async all(request: Request, response: Response): Promise<void> {
+    const messageRepository = getRepository(Message);
+    const messages = await messageRepository.find();
 
-  res.json(body).status(200);
-};
+    response.json(messages).status(200);
+  }
+}
