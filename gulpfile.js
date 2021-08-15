@@ -5,67 +5,69 @@ const execa = require('execa');
 const path = require('path');
 const package = require('./package.json');
 
-function getTmpPath() {
+function getTmpBuildPath() {
   return path.join(__dirname, '.tmp-build');
 }
 
-function artifactPath() {
+function buildArtifactPath() {
   return path.join(__dirname, 'deploy');
 }
 
 async function clean() {
-  await execa('rm', ['-rf', getTmpPath()]);
-  await execa('rm', ['-rf', artifactPath()]);
+  await execa('rm', ['-rf', getTmpBuildPath()]);
+  await execa('rm', ['-rf', buildArtifactPath()]);
 }
 
-async function mkTmp() {
-  await execa('mkdir', [getTmpPath()]);
+async function mkTmpBuildDir() {
+  await execa('mkdir', [getTmpBuildPath()]);
+}
+
+async function cwdTmpBuildDir() {
+  process.chdir(getTmpBuildPath());
 }
 
 async function clone() {
   const { url: repoUrl } = package.repository;
-  await execa('git', ['clone', repoUrl, getTmpPath()]);
+  const branch = process.env.BRANCH || 'main';
+
+  await execa('git', ['clone', repoUrl, '-b', branch, getTmpBuildPath()]);
 }
 
 async function installAllDependencies() {
-  process.chdir(getTmpPath());
   await execa('npm', ['install']);
 }
 
 async function build() {
-  process.chdir(getTmpPath());
   await execa('npm', ['run', 'build']);
 }
 
 async function cleanDependencies() {
-  process.chdir(getTmpPath());
   await execa('rm', ['-rf', 'node_modules']);
 }
 
 async function installProductionDependencies() {
-  process.chdir(getTmpPath());
   await execa('npm', ['install', '--production']);
 }
 
-async function buildArtifact() {
-  process.chdir(getTmpPath());
+async function buildDeployArtifact() {
   const artifactName = `${package.name}-${package.version}.zip`;
   gulp
     .src(['build/**', 'node_modules/**'], { base: '.' })
     .pipe(zip(artifactName))
-    .pipe(gulp.dest(artifactPath()));
+    .pipe(gulp.dest(buildArtifactPath()));
 }
 
 module.exports = {
   default: gulp.series(
     clean,
-    mkTmp,
+    mkTmpBuildDir,
+    cwdTmpBuildDir,
     clone,
     installAllDependencies,
     build,
     cleanDependencies,
     installProductionDependencies,
-    buildArtifact
+    buildDeployArtifact
   ),
   clean,
 };
