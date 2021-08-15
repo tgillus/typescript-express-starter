@@ -20,7 +20,7 @@ async function clean() {
 }
 
 async function mkTmpBuildDir() {
-  await execa('mkdir', [getTmpBuildPath()]);
+  await execa('mkdir', ['-p', getTmpBuildPath()]);
 }
 
 async function cwdTmpBuildDir() {
