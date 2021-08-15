@@ -12,6 +12,7 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "build:artifact": "npx gulp",
+    "build:artifact:clean": "npx gulp clean",
     "format": "prettier . --write",
     "lint": "eslint . --ext .js,.ts",
     "lint-and-fix": "eslint . --ext .js,.ts --fix",
