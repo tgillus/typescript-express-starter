@@ -3,25 +3,17 @@
     "target": "ES2018",
     "module": "CommonJS",
     "lib": ["ES2018"],
-    // "declaration": true,                         /* Generates corresponding '.d.ts' file. */
-    // "declarationMap": true,                      /* Generates a sourcemap for each corresponding '.d.ts' file. */
-    // "sourceMap": true,                           /* Generates corresponding '.map' file. */
+    "sourceMap": true,
     "outDir": "build",
     "rootDir": "src",
-    // "allowJs": true,
+    "allowJs": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    // "noUnusedLocals": true,                      /* Report errors on unused locals. */
-    // "noUnusedParameters": true,                  /* Report errors on unused parameters. */
     "noImplicitReturns": true,
-    // "noFallthroughCasesInSwitch": true,          /* Report errors for fallthrough cases in switch statement. */
-    // "typeRoots": ["./node_modules/@types"],      /* List of folders to include type definitions from. */
     "esModuleInterop": true,
-    // "inlineSourceMap": true,
-    // "inlineSources": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
