@@ -1,4 +1,4 @@
 build
-bundle
+deploy
 .husky
 node_modules

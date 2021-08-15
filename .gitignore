@@ -1,9 +1,10 @@
 build
 coverage
-bundle
+deploy
 .env
 .eslintcache
 node_modules
+.tmp
 
 log*
 npm-debug.log*
