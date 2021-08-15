@@ -29,7 +29,6 @@ async function cwdTmpBuildDir() {
 
 async function clone() {
   const { url } = package.repository;
-
   await execa('git', ['clone', url, '-b', deploy.branch(), getTmpBuildPath()]);
 }
 
