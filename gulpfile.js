@@ -4,6 +4,7 @@ const zip = require('gulp-zip');
 const execa = require('execa');
 const path = require('path');
 const package = require('./package.json');
+const deploy = require('./deploy.config');
 
 function getTmpBuildPath() {
   return path.join(__dirname, '.tmp-build');
@@ -27,10 +28,9 @@ async function cwdTmpBuildDir() {
 }
 
 async function clone() {
-  const { url: repoUrl } = package.repository;
-  const branch = process.env.BRANCH || 'main';
+  const { url } = package.repository;
 
-  await execa('git', ['clone', repoUrl, '-b', branch, getTmpBuildPath()]);
+  await execa('git', ['clone', url, '-b', deploy.branch(), getTmpBuildPath()]);
 }
 
 async function installAllDependencies() {
@@ -57,9 +57,11 @@ async function buildDeployArtifact() {
     .pipe(gulp.dest(buildArtifactPath()));
 }
 
-module.exports = {
-  default: gulp.series(
-    clean,
+gulp.task('clean', clean);
+gulp.task(
+  'build',
+  gulp.series(
+    gulp.task('clean'),
     mkTmpBuildDir,
     cwdTmpBuildDir,
     clone,
@@ -68,6 +70,6 @@ module.exports = {
     cleanDependencies,
     installProductionDependencies,
     buildDeployArtifact
-  ),
-  clean,
-};
+  )
+);
+gulp.task('default', gulp.task('build'));

@@ -10,8 +10,8 @@
   "license": "ISC",
   "main": "build/server.js",
   "scripts": {
-    "artifact": "npx gulp",
     "build": "rimraf ./build && tsc",
+    "build:artifact": "npx gulp",
     "format": "prettier . --write",
     "lint": "eslint . --ext .js,.ts",
     "lint-and-fix": "eslint . --ext .js,.ts --fix",
