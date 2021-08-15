@@ -7,6 +7,7 @@ module.exports = {
   mode: 'production',
   externals: {
     express: 'express',
+    typeorm: 'typeorm',
   },
   plugins: [
     new FilterWarningsPlugin({

@@ -1,12 +1,33 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 module.exports = {
   target: 'node12',
   mode: 'development',
   externals: {
-    express: 'express',
+    // express: 'express',
+    typeorm: 'typeorm',
   },
+  plugins: [
+    new FilterWarningsPlugin({
+      exclude: [
+        /mongodb/,
+        /mssql/,
+        /mysql/,
+        /mysql2/,
+        /oracledb/,
+        /pg/,
+        /pg-native/,
+        /pg-query-stream/,
+        /react-native-sqlite-storage/,
+        /redis/,
+        /sqlite3/,
+        // /sql.js/,
+        /typeorm-aurora-data-api-driver/,
+      ],
+    }),
+  ],
   entry: {
     server: './src/server.ts',
   },
