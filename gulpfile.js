@@ -6,7 +6,7 @@ const path = require('path');
 const package = require('./package.json');
 
 function getTmpPath() {
-  return path.join(__dirname, '.tmp');
+  return path.join(__dirname, '.tmp-build');
 }
 
 function artifactPath() {
