@@ -2,8 +2,13 @@ import supertest from 'supertest';
 import { DbConnection } from '../src/db/connection';
 import { MessagesService } from '../src/services/messages';
 import { app } from '../src/express/app';
+import { logger } from '../src/util/logger';
 
 beforeAll(async () => {
+  logger.transports.forEach((transport) => {
+    transport.silent = true;
+  });
+
   await DbConnection.create();
 
   const messsageService = new MessagesService();
@@ -21,7 +26,7 @@ afterAll(async () => {
   return await DbConnection.close();
 });
 
-afterEach(() => {
+beforeEach(() => {
   jest.resetAllMocks();
 });
 
@@ -43,7 +48,7 @@ describe('GET /messages', () => {
     ]);
   });
 
-  test('returns error if and error is thrown when retrieving messages', async () => {
+  test('returns error if an exception is thrown when retrieving messages', async () => {
     jest
       .spyOn(MessagesService.prototype, 'all')
       .mockImplementation(async () => {
