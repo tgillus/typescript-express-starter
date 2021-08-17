@@ -8,10 +8,10 @@ export async function all(request: Request, response: Response): Promise<void> {
   try {
     const messages = await messagesService.all();
 
-    response.json(messages).status(200);
+    response.status(200).json(messages);
   } catch (error) {
     logger.error(error.message);
 
-    response.json({ error: 'Failed to retrieve messages' }).status(500);
+    response.status(500).json({ error: 'Failed to retrieve messages' });
   }
 }

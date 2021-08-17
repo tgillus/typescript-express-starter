@@ -1,7 +1,7 @@
 {
   "name": "typescript-express-starter",
   "version": "1.0.0",
-  "description": "A Typescript Express starter project.",
+  "description": "A TypeScript Express starter project.",
   "author": "Tramaine L. Gillus",
   "repository": {
     "type": "git",
@@ -11,12 +11,12 @@
   "main": "build/server.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
-    "build:artifact": "npx gulp",
-    "build:artifact:clean": "npx gulp clean",
     "clean": "rimraf ./build",
     "format": "prettier . --write",
+    "gulp:build": "npx gulp",
+    "gulp:clean": "npx gulp clean",
     "lint": "eslint . --ext .js,.ts",
-    "lint-and-fix": "eslint . --ext .js,.ts --fix",
+    "lint:fix": "eslint . --ext .js,.ts --fix",
     "prepare": "husky install",
     "start": "npm run build && NODE_OPTIONS=--enable-source-maps node build/server.js",
     "start:dev": "nodemon",

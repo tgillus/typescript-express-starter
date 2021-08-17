@@ -9,7 +9,7 @@ beforeAll(async () => {
   const messsageService = new MessagesService();
   await messsageService.save({
     id: 1,
-    body: 'Yoooo!',
+    body: 'Hi!',
   });
   return await messsageService.save({
     id: 2,
@@ -21,6 +21,10 @@ afterAll(async () => {
   return await DbConnection.close();
 });
 
+afterEach(() => {
+  jest.resetAllMocks();
+});
+
 describe('GET /messages', () => {
   test('returns all messages', async () => {
     const response = await supertest(app).get('/messages');
@@ -30,12 +34,27 @@ describe('GET /messages', () => {
     expect(response.body).toEqual([
       {
         id: 1,
-        body: 'Yoooo!',
+        body: 'Hi!',
       },
       {
         id: 2,
         body: 'Bye!',
       },
     ]);
+  });
+
+  test('returns error if and error is thrown when retrieving messages', async () => {
+    jest
+      .spyOn(MessagesService.prototype, 'all')
+      .mockImplementation(async () => {
+        throw new Error('mock');
+      });
+
+    const response = await supertest(app).get('/messages');
+
+    expect(response.statusCode).toEqual(500);
+    expect(response.body).toEqual({
+      error: 'Failed to retrieve messages',
+    });
   });
 });

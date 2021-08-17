@@ -6,30 +6,33 @@ const path = require('path');
 const package = require('./package.json');
 const deploy = require('./deploy.config');
 
-function getTmpBuildPath() {
+function tmpBuildPath() {
   return path.join(__dirname, '.tmp-build');
 }
 
-function buildArtifactPath() {
+function artifactBuildPath() {
   return path.join(__dirname, 'deploy');
 }
 
-async function clean() {
-  await execa('rm', ['-rf', getTmpBuildPath()]);
-  await execa('rm', ['-rf', buildArtifactPath()]);
+async function rmTmpBuildPath() {
+  await execa('rimraf', [tmpBuildPath()]);
+}
+
+async function rmArtifactBuildPath() {
+  await execa('rimraf', [artifactBuildPath()]);
 }
 
 async function mkTmpBuildDir() {
-  await execa('mkdir', ['-p', getTmpBuildPath()]);
+  await execa('mkdir', ['-p', tmpBuildPath()]);
 }
 
 async function cwdTmpBuildDir() {
-  process.chdir(getTmpBuildPath());
+  process.chdir(tmpBuildPath());
 }
 
 async function clone() {
   const { url } = package.repository;
-  await execa('git', ['clone', url, '-b', deploy.branch(), getTmpBuildPath()]);
+  await execa('git', ['clone', url, '-b', deploy.branch(), tmpBuildPath()]);
 }
 
 async function installAllDependencies() {
@@ -48,15 +51,15 @@ async function installProductionDependencies() {
   await execa('npm', ['install', '--production']);
 }
 
-async function buildDeployArtifact() {
+async function buildDeploymentArtifact() {
   const artifactName = `${package.name}-${package.version}.zip`;
   gulp
     .src(['build/**', 'node_modules/**'], { base: '.' })
     .pipe(zip(artifactName))
-    .pipe(gulp.dest(buildArtifactPath()));
+    .pipe(gulp.dest(artifactBuildPath()));
 }
 
-gulp.task('clean', clean);
+gulp.task('clean', gulp.parallel(rmTmpBuildPath, rmArtifactBuildPath));
 gulp.task(
   'build',
   gulp.series(
@@ -68,7 +71,7 @@ gulp.task(
     build,
     cleanDependencies,
     installProductionDependencies,
-    buildDeployArtifact
+    buildDeploymentArtifact
   )
 );
 gulp.task('default', gulp.task('build'));
