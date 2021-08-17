@@ -49,7 +49,7 @@ describe('GET /messages', () => {
   });
 
   test('returns error if an exception is thrown when retrieving messages', async () => {
-    jest
+    const spy = jest
       .spyOn(MessagesService.prototype, 'all')
       .mockImplementation(async () => {
         throw new Error('mock');
@@ -57,6 +57,7 @@ describe('GET /messages', () => {
 
     const response = await supertest(app).get('/messages');
 
+    expect(spy).toHaveBeenCalledTimes(1);
     expect(response.statusCode).toEqual(500);
     expect(response.body).toEqual({
       error: 'Failed to retrieve messages',
